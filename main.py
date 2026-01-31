@@ -1,6 +1,7 @@
 import sqlite3
-from colorama import Fore, Back, Style
+from colorama import Fore, Back, Style, init
 from argon2 import PasswordHasher
+init(autoreset=True)
 
 ph = PasswordHasher()
 con = sqlite3.connect("BQv2.db")
