@@ -8,7 +8,6 @@ con = sqlite3.connect("BQv2.db")
 cursor = con.cursor()
 cursor.execute("SELECT * FROM sqlite_master")
 
-
 def logIn():  #used for flow and getting data from user. Checking of credentials is in a different function
    while True:
          username = input( Fore.LIGHTBLUE_EX + "\nUsername:\n" + Style.RESET_ALL)
@@ -226,17 +225,23 @@ def allOrders(username):
       print("\n".join(formatOrder))
       orderFeedback(employeeRows)  
 
-      inputIfModify = input("\nWould you like to do something with the orders? (ONE at a time!) Y/N\n").lower()
-      if inputIfModify == "y":
-         makeBurger(username)
-      elif inputIfModify == "n":
+      if not employeeRows:
+         input("\nPress Enter to return to menu...")
          employeeMain(username)
+         return
+      else:
+         inputIfModify = input("\nWould you like to do something with the orders? (ONE at a time!) Y/N\n").lower()
+         if inputIfModify == "y":
+            makeBurger(username)
+         elif inputIfModify == "n":
+            employeeMain(username)
 
 
 #Checks what feedback to give user - if list is empty (aka there are no orders) or whether all orders are alreadt made - and there are no orders employee can make
 def orderFeedback(employeeRows):
    if len(employeeRows) == 0: 
       print("No more orders left to make!")
+      return
 
    #iterates through each order made and checks produced, if produced amount is the same as length of a list, it means all orders are ready
    producedCount = 0
@@ -252,7 +257,12 @@ def makeBurger(username):
    while True:
       cursor.execute("SELECT orderID, productID, produced FROM orders")
       orderRow = cursor.fetchall()
-      keyIDWithZero = input("Which order would you like to make? (ONE at a time!) \n") 
+      if orderRow:
+         keyIDWithZero = input("Which order would you like to make? (ONE at a time!) \n")
+      else:
+         print("There are no orders to make right now.")
+         return
+
 
       keyIDNoZero = keyIDWithZero.replace(extraZeros, "") #makes it possible to write both 000x and x. Cancels out the functionality of extraZeros
 
