@@ -1,0 +1,38 @@
+CREATE TABLE "users" (
+	"userID"	INTEGER NOT NULL,
+	"username"	TEXT NOT NULL,
+	"password"	TEXT,
+	"employee"	INTEGER NOT NULL,
+	PRIMARY KEY("userID" AUTOINCREMENT)
+);
+
+CREATE TABLE "burgers" (
+	"burgerID"	INTEGER NOT NULL UNIQUE,
+	"burgName"	INTEGER NOT NULL,
+	PRIMARY KEY("burgerID" AUTOINCREMENT)
+);
+
+CREATE TABLE "ingredients" (
+	"ingredID"	INTEGER NOT NULL UNIQUE,
+	"ingredName"	TEXT NOT NULL,
+	"quantityStorage"	INTEGER NOT NULL,
+	PRIMARY KEY("ingredID" AUTOINCREMENT)
+);
+
+CREATE TABLE "burgIngredients" (
+	"burgerID"	INTEGER NOT NULL,
+	"ingredients"	INTEGER NOT NULL,
+	FOREIGN KEY("burgerID") REFERENCES "burgers"("burgerID") ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY("ingredients") REFERENCES "ingredients"("ingredID") ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE "orders" (
+	"orderID"	INTEGER NOT NULL UNIQUE,
+	"clientID"	INTEGER NOT NULL,
+	"productID"	INTEGER NOT NULL,
+	"produced"	INTEGER NOT NULL,
+	PRIMARY KEY("orderID" AUTOINCREMENT),
+	FOREIGN KEY("clientID") REFERENCES "users"("userID") ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY("productID") REFERENCES "burgers"("burgerID") ON UPDATE CASCADE ON DELETE CASCADE
+);
+
