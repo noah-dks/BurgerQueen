@@ -1,6 +1,7 @@
 # BurgerQueen
 
 School project letting us explore connectivity between python and databases. Simple burger-ordering roleplay!🍔🍟
+PS: The employee code to play as an employee is **NOAHBURGERS**
 
 This project uses **SQLite**, which means the database is a local file (`BQv2.db`) created on your computer.
 

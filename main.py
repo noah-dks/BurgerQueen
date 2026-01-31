@@ -49,6 +49,17 @@ def registerUser():
    while True:
       try:
          isEmployee = 0  #automatically forces user to be a customer, all employees are added using sql script for safety reasons
+         make_emp = input("Create employee account? (Y/N): ").strip().lower()
+
+         if make_emp == "y":
+            code = input("Enter employee access code: ").strip()
+            if code == "NOAHBURGERS":
+               isEmployee = 1
+            else:
+               print("Code is incorrect! Creating customer account instead.")
+               isEmployee = 0
+
+
          username = input(Fore.BLUE + "\nEnter a username:\n" + Style.RESET_ALL)
          cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
          if cursor.fetchone():
