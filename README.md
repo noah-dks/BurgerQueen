@@ -51,7 +51,7 @@ $ cd BurgerQueen
 
 #### Create the database
 You can easily create the database by running this script:   
-`python create_db.py`
+`python createDB.py`
 
 #### Run the program
 In the terminal of project directory, simply run:  
